@@ -237,4 +237,45 @@ class Base(object):
             character = ("Alive")
             return character
 
-    
+    def saving_throw(self):
+        # Fortitude
+        roll = random.randint(1, 20)
+        fortRoll = (roll + Fort)
+        print("Roll", roll)
+        if roll == 1:
+            print("Save misses")
+
+        elif fortRoll < 19:
+            # check if it saves
+            print("Succesfully saved!")
+
+        elif roll == 20:
+            print("Succesfully saved!")
+
+        # Reflex
+        roll = random.randint(1, 20)
+        reflexRoll = (roll + Reflex)
+        print("Roll", roll)
+        if roll == 1:
+            print("Save misses")
+
+        elif relfexRoll < 19:
+            # check if it saves
+            print("Succesfully saved!")
+
+        elif roll == 20:
+            print("Succesfully saved!")
+
+        # Will
+        roll = random.randin(1, 20)
+        willRoll = (roll + Will)
+        print("Roll", roll)
+        if roll == 1:
+            print("Save misses")
+
+        elif willRoll < 19:
+            # check if it saves
+            print("Succesfully saved!")
+
+        elif roll == 20:
+            print("Succesfully saved!")
