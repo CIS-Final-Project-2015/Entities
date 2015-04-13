@@ -6,12 +6,12 @@ import random
 
 class Base(object):
     """ The base class for any character/monster. """
-    def __init__(self):
+    def __init__(self, base_hp, base_attack, xp, level, defense, dexterity, strength, constitution,intelligence, wisdom, charisma, armor_class, speed, CMD, CMB, fortitude, reflex, will, skills, melee, ranged, rollOne, rollTwo, die, damage, damageCrit):
         self.base_hp = base_hp
         self.base_attack = base_attack
         self.xp = xp
         self.level = level
-        self.defense = 0
+        self.defense = defense
         self.dex = dexterity
         self.str = strength
         self.con = constitution
@@ -103,7 +103,7 @@ class Base(object):
                 if roll == 1:
                     return 0
 
-                elif roll <= 19:
+                elif roll >= armor_class:
                     # die = number of dice
                     while i < die:
                         rollOne += random.randint(1, dieface)
@@ -134,7 +134,7 @@ class Base(object):
                 if roll == 1:
                     return False
 
-                elif roll <= 19:
+                elif roll >= armor_class:
                     # die = number of dice
                     while i < die:
                         rollOne += random.randint(1, dieface)
@@ -165,7 +165,7 @@ class Base(object):
             if roll == 1:
                 return False
 
-            elif roll <= 19:
+            elif roll >= armor_class:
                 #die = number of dice
                 while i < die:
                     rollOne += random.randint(1, dieface)
@@ -196,7 +196,7 @@ class Base(object):
             if roll == 1:
                 return False
 
-            elif roll <= 19:
+            elif roll >= armor_class:
                 # die = number of dice
                 while i < die:
                     rollOne += random.randint(1, dieface)
@@ -230,11 +230,11 @@ class Base(object):
         self.base_hp = hp
         # checks if character is dead
         if hp <= -5:
-            character = ("Dead")
+            character = False
             return character
 
         else:
-            character = ("Alive")
+            character = True
             return character
 
     def saving_throw(self):
@@ -245,7 +245,7 @@ class Base(object):
         if roll == 1:
             print("Save misses")
 
-        elif fortRoll < 19:
+        elif fortRoll <= 19:
             # check if it saves
             print("Succesfully saved!")
 
@@ -259,7 +259,7 @@ class Base(object):
         if roll == 1:
             print("Save misses")
 
-        elif relfexRoll < 19:
+        elif relfexRoll <= 19:
             # check if it saves
             print("Succesfully saved!")
 
@@ -273,7 +273,7 @@ class Base(object):
         if roll == 1:
             print("Save misses")
 
-        elif willRoll < 19:
+        elif willRoll <= 19:
             # check if it saves
             print("Succesfully saved!")
 
