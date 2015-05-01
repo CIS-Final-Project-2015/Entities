@@ -6,8 +6,9 @@
 class Monster(object):
     def __init__(self, name, xp, rangedAtk, rangedDieNum, rangedDieSide,
                  rangedMod, meleeAtk, meleeDieNum, meleeDieSide, meleeMod,
-                 strength, dex, con, intelligence, wis, cha, size, CMB, CMD,
-                 armorClass, fort, ref, will, speed, hp, cr, sprite):
+                 strength, dexterity, constitution, intelligence, wisdom,
+                 charisma, size, CMB, CMD, armorClass, fort, ref,
+                 will, speed, hp, cr, sprite):
         self.name = name
         self.xp = xp
         self.rangedAtk = rangedAtk
@@ -19,11 +20,11 @@ class Monster(object):
         self.meleeDieSide = meleeDieSide
         self.meleeMod = meleeMod
         self.str = strength
-        self.dex = dex
-        self.con = con
+        self.dex = dexterity
+        self.con = constitution
         self.intelligence = intelligence
-        self.wis = wis
-        self.cha = cha
+        self.wis = wisdom
+        self.cha = charisma
         self.size = size
         self.CMB = CMB
         self.CMD = CMD
@@ -37,8 +38,10 @@ class Monster(object):
         self.sprite = sprite
 
     def __str__(self):
-        rep = self.name + "\n" + "XP: " + str(self.xp) + "\n"
+        rep = self.name + "\n" + "Speed: " + str(self.speed) + "\n"
         return rep
+
+    
 
 # Dictionaries by level
 class Monster_List(object):

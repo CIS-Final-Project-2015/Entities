@@ -2,228 +2,117 @@
 # Character/Monster base class
 # 
 # The base class to the monsters and characters
-import random
+from random import randint
 
 class Base(object):
     """ The base class for any character/monster. """
-    def __init__(self, base_hp, base_attack, xp, level, defense, dexterity, strength, constitution,intelligence, wisdom, charisma, armor_class, speed, CMD, CMB, fortitude, reflex, will, skills, melee, ranged, rollOne, rollTwo, die, damage, damageCrit):
-        self.base_hp = base_hp
-        self.base_attack = base_attack
+    def __init__(self, name, xp, rangedAtk, rangedDieNum, rangedDieSide,
+                 rangedMod, meleeAtk, meleeDieNum, meleeDieSide, meleeMod,
+                 strength, dexterity, constitution, intelligence, wisdom,
+                 charisma, size, CMB, CMD, armorClass, fort, ref,
+                 will, speed, hp, cr, sprite, weapon, rollOne,
+                 rollTwo, die, damage, damageCrit):
+        self.name = name
         self.xp = xp
-        self.level = level
-        self.defense = defense
-        self.dex = dexterity
+        self.rangedAtk = rangedAtk
+        self.rangedDieNum = rangedDieNum
+        self.rangedDieSide = rangedDieSide
+        self.rangedMod = rangedMod
+        self.meleeAtk = meleeAtk
+        self.meleeDieNum = meleeDieNum
+        self.meleeDieSide = meleeDieSide
+        self.meleeMod = meleeMod
         self.str = strength
+        self.dex = dexterity
         self.con = constitution
-        self.int = intelligence
+        self.intelligence = intelligence
         self.wis = wisdom
         self.cha = charisma
-        self.AC = armor_class
-        self.speed = speed
-        self.CMD = CMD
+        self.size = size
         self.CMB = CMB
-        self.Fort = fortitude
-        self.Ref = reflex
-        self.Will = will
-        self.skills = skills
-        self.melee = melee
-        self.range = ranged
+        self.CMD = CMD
+        self.armorClass = armorClass
+        self.fort = fort
+        self.ref = ref
+        self.will = will
+        self.speed = speed
+        self.hp = hp
+        self.cr = cr
+        self.sprite = sprite
+        self.inventory = []
+        self.weapon = weapon
+        self.carryCap = self.str * 4
         self.rollOne = rollOne
         self.rollTwo = rollTwo
         self.die = die
         self.damage = damage
         self.damageCrit = damageCrit
-        self.str_Mod = __setmods(self.str)
-        self.wis_Mod = __setmods(self.wis)
-        self.int_Mod = __setmods(self.int)
-        self.con_Mod = __setmods(self.con)
-        self.dex_Mod = __setmods(self.dex)
-        self.cha_Mod = __setmods(self.cha)
-
-    def __setmods(self,attribute, character):
-        modifier = 0
-        people = character
-        if attribute == 0 or attribute == 1 :
-            addition = modifier - 5
-        elif attribute == 2 or attribute == 3 :
-            addition = modifier - 4
-        elif attribute == 4 or attribute == 5 :
-            addition = modifier - 3
-        elif attribute == 6 or attribute == 7 :
-            addition = modifier - 2
-        elif attribute == 8 or attribute == 9 :
-            addition = modifier - 1
-        elif attribute == 12 or attribute == 13 :
-            addition = modifier + 1
-        elif attribute == 14 or attribute == 15 :
-            addition = modifier + 2
-        elif attribute == 16 or attribute == 17 :
-            addition = modifier + 3
-        elif attribute == 18 or attribute == 19 :
-            addition = modifier + 4
-        elif attribute == 20 or attribute == 21 :
-            addition = modifier + 5
-        elif attribute == 22 or attribute == 23 :
-            addition = modifier + 6
-        elif attribute == 24 or attribute == 25 :
-            addition = modifier + 7
-        elif attribute == 26 or attribute == 27 :
-            addition = modifier + 8
-        elif attribute == 28 or attribute == 29 :
-            addition = modifier + 9
-        elif attribute == 30 or attribute == 31 :
-            addition = modifier + 10
-        elif attribute == 32 or attribute == 33 :
-            addition = modifier + 11
-        elif attribute == 34 or attribute == 35 :
-            addition = modifier + 12
-        elif attribute == 36 or attribute == 37 :
-            addition = modifier + 13
-        elif attribute == 38 or attribute == 39 :
-            addition = modifier + 14
-        elif attribute == 40 or attribute == 41 :
-            addition = modifier + 15
-        elif attribute == 42 or attribute == 43 :
-            addition = modifier + 16
-
-        # if "Morningstar" in Cleric.inventory:
-            
-        return modifier
+        self.initiative = 0
+        self.attackRoll = 0
+        
 
     # Attack Method
     def attack(self):
-        # checks if character has both ranged and melee weapons
-        if melee and ranged > 1:
-            # random roll to decide which attack
-            attack = random.randint(1, 2)
-            # Random Ranged
-            if attack == 1:
-                roll = random.randint(1, 20)
-                attackRoll = (roll + strMod + size)
-                if roll == 1:
-                    return 0
 
-                elif roll >= armor_class:
-                    # die = number of dice
-                    while i < die:
-                        rollOne += random.randint(1, dieface)
-                        i += 1
-
-                    damage = rollOne + melee
-                    return damage
-
-                # crit
-                elif roll == 20:
-                    while i < die:
-                        rollOne += random.randint(1, dieface)
-                        i += 1
-
-                    i = 0
-                    damage = rollOne + melee
-                    while i < die:
-                        rollTwo += random.randint(1, dieface)
-                        i += 1
-
-                    damageCrit = rollTwo + melee
-                    return damage, damageCrit
-
-            # Random Melee
-            elif attack == 2:
-                roll = random.randint(1, 20)
-                attackRoll = (roll + dexMod + size)
-                if roll == 1:
-                    return False
-
-                elif roll >= armor_class:
-                    # die = number of dice
-                    while i < die:
-                        rollOne += random.randint(1, dieface)
-                        i += 1
-
-                    damage = rollOne + ranged
-                    return damage
-
-                # crit
-                elif roll == 20:
-                    while i < die:
-                        rollOne += random.randint(1, dieface)
-                        i += 1
-
-                    i = 0
-                    damage = rollOne + ranged
-                    while i < die:
-                        rollTwo += random.randint(1, dieface)
-                        i += 1
-
-                    damageCrit = rollTwo + ranged
-                    return damage, damageCrit
-                
-        # If there is only a ranged attack, runs
-        if ranged >= 1:
-            roll = random.randint(1, 20)
-            attackRoll = (roll + dexMod + size)
-            if roll == 1:
-                return False
-
-            elif roll >= armor_class:
-                #die = number of dice
-                while i < die:
-                    rollOne += random.randint(1, dieface)
-                    i += 1
-
-                damage = rollOne + ranged
-                return damage
-
-            # crit
-            elif roll == 20:
-                while i < die:
-                    rollOne += random.randint(1, dieface)
-                    i += 1
-
-                i = 0
-                damage = rollOne + ranged
-                while i < die:
-                    rollTwo += random.randint(1, dieface)
-                    i += 1
-
-                damageCrit = rollTwo + ranged
-                return damage, damageCrit
-
-        # If there is only a melee attack, runs
-        elif melee >= 1:
-            roll = random.randint(1, 20)
-            attackRoll = (roll + strMod + size)
-            if roll == 1:
-                return False
-
-            elif roll >= armor_class:
-                # die = number of dice
-                while i < die:
-                    rollOne += random.randint(1, dieface)
-                    i += 1
-
-                damage = rollOne + melee
-                return damage
-
-            # crit
-            elif roll == 20:
-                while i < die:
-                    rollOne += random.randint(1, dieface)
-                    i += 1
-
-                i = 0
-                damage = rollOne + melee
-                while i < die:
-                    rollTwo += random.randint(1, dieface)
-                    i += 1
-
-                damageCrit = rollTwo + melee
-                return damage, damageCrit
             
-    def Rep_HP(self):
-        self.base_hp = health    
+        if self.attackRoll == 1:
+            return False
+
+        elif 1 < self.roll < 20:
+            # numDie = number of dice rolled
+            # typeDie = the number of sides each die has.
+            damage = 0
+            for i in range(self.weapon.numDie):
+                hitRoll = (randint(1, self.weapon.typeDie) + dexMod + size)
+                damage += hitRoll
+            damage = rollOne + ranged
+            if self.weapon.rang <= 10:
+                damage1 += (self.str // 5)
+                return damage, "melee"
+            elif self.weapon.rang >= 11:
+                damage2 += (self.dex // 5)
+                return damage, "ranged"
+
+        # crit
+        elif self.initiative == 20:
+            # numDie = number of dice rolled
+            # typeDie = the number of sides each die has.
+            damage1 = 0
+            damage2 = 0
+            for i in range(self.weapon.numDie):
+                hitRoll1 = (randint(1, self.weapon.typeDie) + dexMod + size)
+                damage1 += attackRoll
+                hitRoll2 = (randint(1, self.weapon.typeDie) + dexMod + size)
+                damage2 += attackRoll
+            if self.weapon.rang <= 10:
+                damage1 += (self.str // 5)
+                return damage1, damage2, "crit melee"
+            elif self.weapon.rang >= 11:
+                damage2 += (self.dex // 5)
+                return damage1, damage2, "crit ranged"          
+
+    def roll_initiative(self):
+        """generates a random number between 1-20 + dex"""
+        self.initiative = randint(1, 20) + self.dex
+
+    def roll_attackDie(self):
+        "generates a random number between 1-20"
+        self.attackRoll = randint(1, 20)
+
+    def get_attackRoll(self):
+        return self.attackRoll
+
+    def get_initiative(self):
+        """returns the number of times attack should be run"""
+        return self.initiative
+            
+    def rep_hp(self, health):
+        self.hp = health
         # make sure that we import health from character/monster class.
-        # Need return from combat
+
+    def get_hp(self):
+        """returns objects health"""
+        return self.hp
     
 
     def dying(self):
@@ -240,7 +129,7 @@ class Base(object):
     def saving_throw(self):
         # Fortitude
         roll = random.randint(1, 20)
-        fortRoll = (roll + Fort)
+        fortRoll = (roll + fort)
         print("Roll", roll)
         if roll == 1:
             print("Save misses")
@@ -254,7 +143,7 @@ class Base(object):
 
         # Reflex
         roll = random.randint(1, 20)
-        reflexRoll = (roll + Reflex)
+        reflexRoll = (roll + ref)
         print("Roll", roll)
         if roll == 1:
             print("Save misses")
@@ -267,8 +156,8 @@ class Base(object):
             print("Succesfully saved!")
 
         # Will
-        roll = random.randin(1, 20)
-        willRoll = (roll + Will)
+        roll = random.randint(1, 20)
+        willRoll = (roll + will)
         print("Roll", roll)
         if roll == 1:
             print("Save misses")
