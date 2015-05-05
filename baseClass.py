@@ -49,6 +49,7 @@ class Base(object):
         self.damageCrit = damageCrit
         self.initiative = 0
         self.attackRoll = 0
+        self.living = True
         
 
     # Attack Method
@@ -116,55 +117,11 @@ class Base(object):
     
 
     def dying(self):
-        self.base_hp = hp
         # checks if character is dead
-        if hp <= -5:
-            character = False
-            return character
+        if self.hp <= -5:
+            self.living = False
+            return self.living
 
         else:
-            character = True
-            return character
-
-    def saving_throw(self):
-        # Fortitude
-        roll = random.randint(1, 20)
-        fortRoll = (roll + fort)
-        print("Roll", roll)
-        if roll == 1:
-            print("Save misses")
-
-        elif fortRoll <= 19:
-            # check if it saves
-            print("Succesfully saved!")
-
-        elif roll == 20:
-            print("Succesfully saved!")
-
-        # Reflex
-        roll = random.randint(1, 20)
-        reflexRoll = (roll + ref)
-        print("Roll", roll)
-        if roll == 1:
-            print("Save misses")
-
-        elif relfexRoll <= 19:
-            # check if it saves
-            print("Succesfully saved!")
-
-        elif roll == 20:
-            print("Succesfully saved!")
-
-        # Will
-        roll = random.randint(1, 20)
-        willRoll = (roll + will)
-        print("Roll", roll)
-        if roll == 1:
-            print("Save misses")
-
-        elif willRoll <= 19:
-            # check if it saves
-            print("Succesfully saved!")
-
-        elif roll == 20:
-            print("Succesfully saved!")
+            self.living = True
+            return self.living
